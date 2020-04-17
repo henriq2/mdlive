@@ -1,0 +1,12 @@
+#!/bin/sh
+FILE=$(basename "$1" .md)
+ADDR="http://127.0.0.1:8080/"$FILE".html"
+WATCHER="ls "$FILE".md | entr -n mdconv "$FILE".md"
+SERVER="http-server $(pwd) -c-1"
+
+if ! [ -f "$FILE".md ]; then echo "Invalid md file."; exit 1; fi
+nohup sh -c 'echo $$ >>mdpids;'"$WATCHER" 1>/dev/null 2>&1 &
+nohup sh -c 'echo $$ >>mdpids;'"$SERVER" 1>/dev/null 2>&1 &
+sleep 1
+echo "Live preview at $ADDR"
+firefox "$ADDR"

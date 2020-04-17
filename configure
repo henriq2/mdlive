@@ -1,0 +1,6 @@
+#!/bin/sh
+TEMPLATE_DIR=~/.pandoc/templates
+TEMPLATE_URL="https://raw.githubusercontent.com/tajmone/pandoc-goodies/master/templates/html5/github/GitHub.html5"
+if ! [ -d $TEMPLATE_DIR ]; then mkdir -p $TEMPLATE_DIR; fi
+curl $TEMPLATE_URL >$TEMPLATE_DIR/GitHub.html5 2>/dev/null
+echo 'PATH=$PATH:'"$(pwd)" >>~/.bashrc

@@ -1,0 +1,7 @@
+#!/bin/sh
+FILE=$(basename "$1" .md)
+PARENTS=$(cat mdpids | tr '\n' ' ')
+for i in $PARENTS; do kill -9 $(pgrep -P $i); done
+rm mdpids
+if [ -n "$FILE" ]; then rm "$FILE".html; fi
+echo 'Background processes cleaned'

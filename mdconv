@@ -1,0 +1,7 @@
+#!/bin/sh
+FILE=$(basename "$1" .md)
+LIVEJS='\ \ <script type="text/javascript" src="http://livejs.com/live.js"></script>'
+
+if ! [ -f "$FILE.md" ]; then echo "Invalid md file."; exit 1; fi
+pandoc -s -o "$FILE".html --template=GitHub.html5 "$FILE".md 1>/dev/null 2>&1
+sed -i "/<\/head>/i ${LIVEJS}" "$FILE".html
